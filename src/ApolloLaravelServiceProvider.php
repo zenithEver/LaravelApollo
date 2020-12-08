@@ -49,7 +49,7 @@ class ApolloLaravelServiceProvider extends ServiceProvider
             __DIR__.'/config/apollo.php' => config_path('apollo.php'),
         ]);
 
-        ApolloService::useConfig(config('apollo.redis_use'));
+        //ApolloService::useConfig(config('apollo.redis_use'));
     }
 
     protected function registerCommands()
