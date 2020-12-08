@@ -11,10 +11,6 @@ class ApolloLaravelServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        $this->configure();
-
-        $this->registerCommands();
-
         $input = new InputVar($this->app['apollo.cache']);
         $input->input();
     }
@@ -22,7 +18,9 @@ class ApolloLaravelServiceProvider extends ServiceProvider
 
     public function register()
     {
+        $this->configure();
         $this->registerServices();
+        $this->registerCommands();
     }
 
     protected function registerServices()
@@ -49,7 +47,7 @@ class ApolloLaravelServiceProvider extends ServiceProvider
             __DIR__.'/config/apollo.php' => config_path('apollo.php'),
         ]);
 
-        //ApolloService::useConfig(config('apollo.redis_use'));
+        ApolloService::useConfig(config('apollo.redis_use'));
     }
 
     protected function registerCommands()
