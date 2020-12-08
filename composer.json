@@ -1,7 +1,7 @@
 {
-    "name": "zdk/apollos",
+    "name": "zdk/l-apollo",
     "license": "MIT",
-    "version": "1.0.1",
+    "version": "1.0.0",
     "authors": [
         {
             "name": "lkboy",
@@ -16,9 +16,6 @@
         "illuminate/cache": "~5.7|~6|~7",
         "predis/predis": "~1.1",
         "illuminate/console": "~5.7|~6|~7"
-    },
-    "config":{
-        "secure-http":false
     },
     "autoload": {
         "psr-4": {
