@@ -1,6 +1,7 @@
 {
     "name": "zdk/apollo",
     "license": "MIT",
+    "version": "1.0.1",
     "authors": [
         {
             "name": "lkboy",
