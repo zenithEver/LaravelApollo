@@ -45,9 +45,10 @@ class ApolloLaravelServiceProvider extends ServiceProvider
 
     protected function configure()
     {
-        $this->mergeConfigFrom(
-            __DIR__ . '/../config/apollo.php', 'apollo'
-        );
+        $this->publishes([
+            __DIR__.'/config/apollo.php' => config_path('apollo.php'),
+        ]);
+
         ApolloService::useConfig(config('apollo.redis_use'));
     }
 
