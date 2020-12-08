@@ -11,6 +11,10 @@ class ApolloLaravelServiceProvider extends ServiceProvider
 {
     public function boot()
     {
+        $this->configure();
+
+        $this->registerCommands();
+
         $input = new InputVar($this->app['apollo.cache']);
         $input->input();
     }
@@ -18,14 +22,11 @@ class ApolloLaravelServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->configure();
         $this->registerServices();
-        $this->registerCommands();
     }
 
     protected function registerServices()
     {
-
         $this->app->singleton('apollo.cache', function ($app) {
             $app['config']->set('cache', config('apollo.cache'));
             $obj = new CacheManager($app);
