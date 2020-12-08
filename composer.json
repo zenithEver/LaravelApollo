@@ -1,7 +1,7 @@
 {
     "name": "zdk/apollo",
     "license": "MIT",
-    "version": "1.0.3",
+    "version": "1.0.5",
     "authors": [
         {
             "name": "lkboy",
@@ -16,6 +16,13 @@
         "illuminate/cache": "~7",
         "predis/predis": "~1.1",
         "illuminate/console": "~7"
+    },
+    "extra": {
+        "laravel": {
+            "providers" : [
+                "Sunaloe\\ApolloLaravel\\ApolloLaravelServiceProvider"
+            ]
+        }
     },
     "autoload": {
         "psr-4": {
