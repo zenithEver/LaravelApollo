@@ -3,39 +3,16 @@
 
 namespace Sunaloe\ApolloLaravel;
 
-use Illuminate\Contracts\Cache\Factory as FactoryContract;
+use Illuminate\Support\Facades\Storage;
 
 class InputVar
 {
-    private $cache = null;
-
-    public function __construct(FactoryContract $cache)
-    {
-        $this->cache = $cache;
-    }
-
-    /**
-     * @return array|mixed
-     */
-    private function getData()
-    {
-        $ret = [];
-        $redisKey = config('apollo.data_redis_key');
-        $data = $this->cache->get($redisKey);
-        $arr = \json_decode($data, true);
-        if (!empty($arr)) {
-            $ret = $arr;
-        }
-        return $ret;
-    }
-
     public function input()
     {
-        $ret = $this->getData();
-        $prefix = config("apollo.prefix");
+        $ret = app('apollo.cache')->get();
         $varObj = app('apollo.variable');
         foreach ($ret as $key => $val) {
-            $key = sprintf("%s%s", $prefix, $key);
+            $key = sprintf("%s%s", 'apollo:', $key);
             $varObj->setEnvironmentVariable($key, $val);
         }
     }

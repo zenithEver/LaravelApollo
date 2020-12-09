@@ -5,18 +5,9 @@ namespace Sunaloe\ApolloLaravel;
 
 
 use Org\Multilinguals\Apollo\Client\ApolloClient;
-use Illuminate\Contracts\Cache\Factory as FactoryContract;
-use Sunaloe\ApolloLaravel\Contracts\Operate;
 
 class ApolloService
 {
-    private $cache;
-
-    public function __construct(FactoryContract $cache)
-    {
-        $this->cache = $cache;
-    }
-
     /**
      * @param $fileList
      * @throws \Exception
@@ -39,9 +30,7 @@ class ApolloService
             return;
         }
 
-
-        $redisKey = config('apollo.data_redis_key');
-        $this->cache->forever($redisKey, json_encode($newConfig));
+        app('apollo.cache')->save($newConfig);
 
         echo date('c') . ":update success\n";
     }
@@ -62,23 +51,15 @@ class ApolloService
      */
     public function startCallback()
     {
-        $list = glob(config('apollo.save_dir') . DIRECTORY_SEPARATOR . 'apolloConfig.*');
-        $this->updateConfig($list);
-    }
+        $saveDir = config('apollo.save_dir');
+        $realSaveDir = realpath($saveDir);
 
-    /**
-     * @param $connection
-     * @throws \Exception
-     */
-    public static function useConfig($connection)
-    {
-        if (is_null($config = config("database.redis.{$connection}"))) {
-            throw new \Exception("Redis connection [{$connection}] has not been configured.");
+        // 生产目录
+        if(!is_dir($realSaveDir)) {
+            mkdir($realSaveDir, 0777, true);
         }
 
-        config(['database.redis.apollo' => array_merge($config, [
-            'options' => ['prefix' => config('apollo.prefix') ?: 'apollo:'],
-        ])]);
+        $list = glob($saveDir . DIRECTORY_SEPARATOR . 'apolloConfig.*');
+        $this->updateConfig($list);
     }
-
 }

@@ -5,14 +5,14 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static bool resetConfig()
+ * @method static string|int get()
  *
- * @see Sunaloe\ApolloLaravel\ApolloManger
  */
 
 class Apollo extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'apollo';
+        return 'apollo.cache';
     }
 }
