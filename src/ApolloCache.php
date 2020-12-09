@@ -17,7 +17,7 @@ class ApolloCache
      * 保存
      * @param array $fileContent
      */
-    public function save(array $fileContent): void
+    public static function save(array $fileContent): void
     {
         file_put_contents(self::CACHE_FILE, json_encode($fileContent));
     }
@@ -27,10 +27,16 @@ class ApolloCache
      * 获取缓存内容
      * @return array
      */
-    public function get(): array
+    public static function get(): array
     {
         $content = file_get_contents(self::CACHE_FILE);
 
         return json_decode($content, true) ?? [];
+    }
+
+    public static function getConfig(string $key, $default = '') {
+        $content = self::get();
+
+        return $content[$key] ?? $default;
     }
 }

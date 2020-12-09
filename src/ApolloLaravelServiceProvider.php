@@ -24,10 +24,6 @@ class ApolloLaravelServiceProvider extends ServiceProvider
 
     protected function registerServices()
     {
-        $this->app->singleton('apollo.cache', function ($app) {
-            return new ApolloCache();
-        });
-
         $this->app->singleton('apollo.service', function ($app) {
             return new ApolloService();
         });

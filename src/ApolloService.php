@@ -30,7 +30,7 @@ class ApolloService
             return;
         }
 
-        app('apollo.cache')->save($newConfig);
+        ApolloCache::save($newConfig);
 
         echo date('c') . ":update success\n";
     }
