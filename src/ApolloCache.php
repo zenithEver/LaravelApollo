@@ -14,6 +14,12 @@ class ApolloCache
     const CACHE_FILE = '/var/cache/xiaoniuhyphp/apollo';
 
     /**
+     * 内容
+     * @var array
+     */
+    private static $contents = null;
+
+    /**
      * 保存
      * @param array $fileContent
      */
@@ -29,9 +35,14 @@ class ApolloCache
      */
     public static function get(): array
     {
-        $content = file_get_contents(self::CACHE_FILE);
+        /**
+         * 增加变量配置，避免每次进行IO读写
+         */
+        if(is_null(self::$contents)) {
+            self::$contents = file_get_contents(self::CACHE_FILE);
+        }
 
-        return json_decode($content, true) ?? [];
+        return json_decode(self::$contents, true) ?? [];
     }
 
     public static function getConfig(string $key, $default = '') {
