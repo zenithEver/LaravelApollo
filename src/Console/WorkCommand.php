@@ -17,7 +17,7 @@ class WorkCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'apollo:work';
+    protected $signature = 'apollo:work {env}';
 
     /**
      * The console command description.
@@ -34,6 +34,10 @@ class WorkCommand extends Command
      */
     public function handle()
     {
+        $applicationEnv = $this->argument('env');
+
+        app('apollo.variable')->setEnvironmentVariable('APP_ENV', $applicationEnv);
+
         $apollo = app('apollo.service');
         $client = $apollo->getServer();
 

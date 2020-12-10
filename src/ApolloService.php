@@ -8,6 +8,19 @@ use Org\Multilinguals\Apollo\Client\ApolloClient;
 
 class ApolloService
 {
+    const ENV_HOST = [
+        // dev环境
+        'dev'   => 'http://apollo.58huihuahua.com:18081',
+        // fat环境
+        'fat'   => 'http://apollo.58huihuahua.com:18082',
+        'uat'   => 'http://apollo.58huihuahua.com:18083',
+        'beta1' => 'http://apollo.58huihuahua.com:18084',
+        'beta2' => 'http://apollo.58huihuahua.com:18085',
+        'beta3' => 'http://apollo.58huihuahua.com:18086',
+        'pro'   => 'http://apollo.51huihuahua.com:8080',
+        'gray'  => 'http://apollo.51huihuahua.com:8081'
+    ];
+
     /**
      * @param $fileList
      * @throws \Exception
@@ -40,8 +53,12 @@ class ApolloService
      */
     public function getServer()
     {
+        // 配置的环境
+        $applicationEnv = env('APP_ENV');
+        $apolloServer = self::ENV_HOST[$applicationEnv] ?? 'dev';
+
         $server = new ApolloClient(
-            config('apollo.server'), config('apollo.appid'), config('apollo.namespaces'));
+            $apolloServer, config('apollo.appid'), config('apollo.namespaces'));
         $server->save_dir = config('apollo.save_dir');
         return $server;
     }

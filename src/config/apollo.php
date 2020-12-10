@@ -4,7 +4,7 @@ return [
     /**
      * apollo 服务器
      */
-    'server' => 'http://apollo.58huihuahua.com:18081',
+    'env' => 'dev',
 
     /**
      *
