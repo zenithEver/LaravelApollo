@@ -50,11 +50,11 @@ class ApolloCache
             if(file_exists($contentFilePath)) {
                 self::$contents = file_get_contents(self::getCacheFilePath());
             } else {
-                self::$contents = [];
+                self::$contents = '';
             }
 
         } else {
-            self::$contents = [];
+            self::$contents = '';
         }
 
         return json_decode(self::$contents, true) ?? [];
