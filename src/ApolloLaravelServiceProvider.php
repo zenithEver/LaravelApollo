@@ -8,13 +8,6 @@ use Illuminate\Support\ServiceProvider;
 
 class ApolloLaravelServiceProvider extends ServiceProvider
 {
-    public function boot()
-    {
-        $input = new InputVar();
-        $input->input();
-    }
-
-
     public function register()
     {
         $this->configure();
