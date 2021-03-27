@@ -45,11 +45,14 @@ class ApolloCache
          * 增加变量配置，避免每次进行IO读写
          */
         if(is_null(self::$contents) && !empty(config('apollo.appid'))) {
-            try {
+            $contentFilePath = self::getCacheFilePath();
+
+            if(file_exists($contentFilePath)) {
                 self::$contents = file_get_contents(self::getCacheFilePath());
-            } catch (\Throwable $e){
+            } else {
                 self::$contents = [];
             }
+
         }
 
         return json_decode(self::$contents, true) ?? [];
