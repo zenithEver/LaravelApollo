@@ -25,7 +25,7 @@ class ApolloCache
      */
     public static function save(array $fileContent): void
     {
-        file_put_contents(self::CACHE_FILE, json_encode($fileContent));
+        file_put_contents(self::getCacheFilePath(), json_encode($fileContent));
     }
 
 
@@ -39,7 +39,7 @@ class ApolloCache
          * 增加变量配置，避免每次进行IO读写
          */
         if(is_null(self::$contents)) {
-            self::$contents = file_get_contents(self::CACHE_FILE);
+            self::$contents = file_get_contents(self::getCacheFilePath());
         }
 
         return json_decode(self::$contents, true) ?? [];
@@ -49,5 +49,10 @@ class ApolloCache
         $content = self::get();
 
         return $content[$key] ?? $default;
+    }
+
+    private static function getCacheFilePath()
+    {
+        return sprintf('%s_%s', self::CACHE_FILE, config('apollo.appid'));
     }
 }
