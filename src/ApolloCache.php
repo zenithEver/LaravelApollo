@@ -38,7 +38,7 @@ class ApolloCache
         /**
          * 增加变量配置，避免每次进行IO读写
          */
-        if(is_null(self::$contents)) {
+        if(is_null(self::$contents) || empty(config('apollo.appid'))) {
             self::$contents = file_get_contents(self::getCacheFilePath());
         }
 
