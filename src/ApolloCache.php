@@ -53,6 +53,8 @@ class ApolloCache
                 self::$contents = [];
             }
 
+        } else {
+            self::$contents = [];
         }
 
         return json_decode(self::$contents, true) ?? [];
