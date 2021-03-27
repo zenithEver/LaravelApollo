@@ -25,6 +25,10 @@ class ApolloCache
      */
     public static function save(array $fileContent): void
     {
+        if(empty(config('apollo.appid'))){
+            return;
+        }
+        
         file_put_contents(self::getCacheFilePath(), json_encode($fileContent));
     }
 
