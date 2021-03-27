@@ -28,7 +28,7 @@ class ApolloCache
         if(empty(config('apollo.appid'))){
             return;
         }
-        
+
         file_put_contents(self::getCacheFilePath(), json_encode($fileContent));
     }
 
@@ -42,7 +42,7 @@ class ApolloCache
         /**
          * 增加变量配置，避免每次进行IO读写
          */
-        if(is_null(self::$contents) || empty(config('apollo.appid'))) {
+        if(is_null(self::$contents) && !empty(config('apollo.appid'))) {
             try {
                 self::$contents = file_get_contents(self::getCacheFilePath());
             } catch (\Throwable $e){
