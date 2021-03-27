@@ -29,7 +29,9 @@ class ApolloCache
             return;
         }
 
-        file_put_contents(self::getCacheFilePath(), json_encode($fileContent));
+       try{
+           file_put_contents(self::getCacheFilePath(), json_encode($fileContent));
+       }catch (\Throwable $e){}
     }
 
 
