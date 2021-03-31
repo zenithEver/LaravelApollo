@@ -37,7 +37,7 @@ class WorkCommand extends Command
     {
         $applicationEnv = $this->argument('env');
 
-        shell_exec(sprintf('touch %s', ApolloCache::CACHE_FILE));
+        exec(sprintf('touch %s', ApolloCache::CACHE_FILE));
 
         app('apollo.variable')->setEnvironmentVariable('APP_ENV', $applicationEnv);
 
