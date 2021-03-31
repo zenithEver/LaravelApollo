@@ -9,6 +9,7 @@
 namespace Sunaloe\ApolloLaravel\Console;
 
 use Illuminate\Console\Command;
+use Sunaloe\ApolloLaravel\ApolloCache;
 
 class WorkCommand extends Command
 {
@@ -35,6 +36,8 @@ class WorkCommand extends Command
     public function handle()
     {
         $applicationEnv = $this->argument('env');
+
+        shell_exec(sprintf('touch %s', ApolloCache::CACHE_FILE));
 
         app('apollo.variable')->setEnvironmentVariable('APP_ENV', $applicationEnv);
 
