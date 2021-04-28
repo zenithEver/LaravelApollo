@@ -4,8 +4,6 @@
 namespace Sunaloe\ApolloLaravel;
 
 
-use Org\Multilinguals\Apollo\Client\ApolloClient;
-
 class ApolloService
 {
     const ENV_HOST = [

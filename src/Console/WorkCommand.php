@@ -45,7 +45,9 @@ class WorkCommand extends Command
         echo "start [$pid]\n";
         $err = '';
         try {
-            $err = $apollo->startCallback();
+            $client->start(function () use ($apollo) {
+                $err = $apollo->startCallback();
+            });
         } catch (\Exception $e) {
             $err = $e->getMessage();
         }
